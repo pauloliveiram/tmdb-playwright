@@ -1,14 +1,14 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
 let listId: any;
 
 test.beforeAll(async ({ request }) => {
-  const response = await request.post('/3/list', {
+  const response = await request.post("/3/list", {
     data: {
       name: "Lista temporária para testar limpar lista",
       description: "",
-      language: "pt-br"
-    }
+      language: "pt-br",
+    },
   });
 
   const responseBody = await response.json();
@@ -21,7 +21,7 @@ test.afterAll(async ({ request }) => {
   await request.delete(`/3/list/${listId}`);
 });
 
-test('Validar a resposta do GET de lists/details', async ({ request }) => {
+test("Validar a resposta do GET de lists/details", async ({ request }) => {
   const response = await request.get(`/3/list/${listId}`);
   const responseBody = await response.json();
 
@@ -50,4 +50,4 @@ test('Validar a resposta do GET de lists/details', async ({ request }) => {
   expect(typeof responseBody.iso_639_1).toBe("string");
   expect(typeof responseBody.name).toBe("string");
   expect(responseBody.poster_path).toBeNull();
-})
+});
